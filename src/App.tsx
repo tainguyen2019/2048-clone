@@ -1,26 +1,24 @@
 import React from 'react';
-import logo from './logo.svg';
+import Game from './components/game';
+import Header from './components/header';
 import './App.css';
+import Footer from './components/footer';
 
-function App() {
+const App: React.FC = () => {
+  const gameLabels = [
+    [2, 4, 2, null],
+    [16, 4, null, null],
+    [64, 128, 8, 32],
+    [1024, 2048, 512, 256],
+  ];
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app-container">
+      <Header scrore={0} bestScore={0} />
+      <Game gameLabels={gameLabels} />
+      <Footer />
     </div>
   );
-}
+};
 
 export default App;

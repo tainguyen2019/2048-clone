@@ -1,0 +1,11 @@
+.game-container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: min(75vh, 100vw);
+  height: min(75vh, 100vw);
+  justify-content: center;
+  background-color: #bbada0;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+}
