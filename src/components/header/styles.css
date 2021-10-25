@@ -1,0 +1,64 @@
+.header {
+  display: flex;
+  flex-direction: column;
+  width: min(75vh, 100vw);
+  margin: 0.5rem 0;
+}
+
+.header-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.title {
+  font-size: 3rem;
+  font-weight: 700;
+  flex: 2;
+}
+
+.score {
+  flex: 1;
+  margin: 0.125rem 0.25rem;
+  display: flex;
+  padding: 0.25rem 0;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  border-radius: 0.25rem;
+  background: #bbada0;
+}
+
+.score-label {
+  color: #eee4da;
+  font-weight: bolder;
+  line-height: 0.25rem;
+  font-size: 1.25;
+}
+
+.score-value {
+  font-weight: bold;
+  font-size: 1.125rem;
+  color: white;
+}
+
+.new-game {
+  display: flex;
+  justify-content: space-between;
+}
+
+.intro {
+  width: 50%;
+  justify-self: center;
+}
+
+button {
+  border: none;
+  outline: none;
+  background: #8f7a66;
+  border-radius: 0.25rem;
+  padding: 1rem 2rem;
+  text-decoration: none;
+  color: #f9f6f2;
+  font-size: 1.0675rem;
+}

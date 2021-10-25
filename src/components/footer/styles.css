@@ -1,0 +1,6 @@
+.footer {
+  margin-top: 1rem;
+  width: min(75vh, 100vw);
+  line-height: 2rem;
+  font-size: 1.25rem;
+}
