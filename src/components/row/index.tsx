@@ -2,7 +2,7 @@ import Cell from '../cell';
 import './styles.css';
 
 type RowProps = {
-  labels: (number | null)[];
+  labels: RowLabels;
 };
 
 const Row: React.FC<RowProps> = ({ labels }) => {
