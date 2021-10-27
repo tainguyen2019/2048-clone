@@ -15,28 +15,32 @@ const Game: React.FC<GameProps> = ({ gameLabels, setGameLabels }) => {
 
       switch (event.key) {
         case 'ArrowUp': {
-          const result: GameLabels = gameLogic.addRandomCell(
+          const result: GameLabels = gameLogic.addCell(
+            gameLabels,
             gameLogic.shiftUp(gameLabels)
           );
           setGameLabels(result);
           break;
         }
         case 'ArrowRight': {
-          const result: GameLabels = gameLogic.addRandomCell(
+          const result: GameLabels = gameLogic.addCell(
+            gameLabels,
             gameLogic.shiftRight(gameLabels)
           );
           setGameLabels(result);
           break;
         }
         case 'ArrowDown': {
-          const result: GameLabels = gameLogic.addRandomCell(
+          const result: GameLabels = gameLogic.addCell(
+            gameLabels,
             gameLogic.shiftDown(gameLabels)
           );
           setGameLabels(result);
           break;
         }
         case 'ArrowLeft': {
-          const result: GameLabels = gameLogic.addRandomCell(
+          const result: GameLabels = gameLogic.addCell(
+            gameLabels,
             gameLogic.shiftLeft(gameLabels)
           );
           setGameLabels(result);

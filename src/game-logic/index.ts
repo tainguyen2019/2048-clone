@@ -20,17 +20,16 @@ const shiftLeft = (rowLabels: RowLabels) => {
 };
 
 const shiftRight = (rowLabels: RowLabels) => {
-  rowLabels = rowLabels.filter(Boolean);
-  let result: RowLabels = [];
+  let result: RowLabels = rowLabels.filter(Boolean);
 
-  for (let i = rowLabels.length - 1; i > 0; i--) {
-    if (rowLabels[i] && rowLabels[i - 1] && rowLabels[i] === rowLabels[i - 1]) {
+  for (let i = result.length - 1; i > 0; i--) {
+    if (result[i] && result[i - 1] && result[i] === result[i - 1]) {
       result[i] = Number(result[i]) * 2;
-      rowLabels[i - 1] = null;
+      result[i - 1] = null;
     }
   }
 
-  result = bufferRowLabels.concat(rowLabels.filter(Boolean));
+  result = bufferRowLabels.concat(result.filter(Boolean));
   result = result.slice(result.length - boardSize);
   return result;
 };
@@ -61,7 +60,7 @@ const getAvailableCells = (gameLabels: GameLabels) => {
 
   gameLabels.forEach((rowLabels, rowIndex) => {
     rowLabels.forEach((cellLabel, columnIndex) => {
-      if (cellLabel == null) {
+      if (!cellLabel) {
         result.push({ row: rowIndex, col: columnIndex });
       }
     });
@@ -135,11 +134,30 @@ const gameLogic = {
 
     return result;
   },
-  addRandomCell: (gameLabels: GameLabels) => {
-    return addRandomCell(gameLabels);
+  addCell: (preGameLabels: GameLabels, transformedGameLabels: GameLabels) => {
+    if (
+      JSON.stringify(preGameLabels) === JSON.stringify(transformedGameLabels)
+    ) {
+      return transformedGameLabels;
+    }
+
+    return addRandomCell(transformedGameLabels);
   },
   getAvailableCells: (gameLabels: GameLabels) => {
     return getAvailableCells(gameLabels);
+  },
+  initialGameLabels: () => {
+    let gameLabels: GameLabels = [
+      [null, null, null, null],
+      [null, null, null, null],
+      [null, null, null, null],
+      [null, null, null, null],
+    ];
+
+    gameLabels = addRandomCell(gameLabels);
+    gameLabels = addRandomCell(gameLabels);
+
+    return gameLabels;
   },
 };
 
