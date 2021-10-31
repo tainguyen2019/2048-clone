@@ -5,56 +5,70 @@ import './styles.css';
 
 type GameProps = {
   gameLabels: GameLabels;
+  status: string;
   setGameLabels: React.Dispatch<React.SetStateAction<GameLabels>>;
+  setStatus: React.Dispatch<React.SetStateAction<string>>;
 };
 
-const Game: React.FC<GameProps> = ({ gameLabels, setGameLabels }) => {
-  useEffect(() => {
-    const handleKeyDown = (event: KeyboardEvent) => {
-      event.preventDefault();
+const Game: React.FC<GameProps> = ({
+  gameLabels,
+  status,
+  setGameLabels,
+  setStatus,
+}) => {
+  const handleKeyDown = (event: KeyboardEvent) => {
+    event.preventDefault();
+    let result: GameLabels = [];
 
-      switch (event.key) {
-        case 'ArrowUp': {
-          const result: GameLabels = gameLogic.addCell(
-            gameLabels,
-            gameLogic.shiftUp(gameLabels)
-          );
-          setGameLabels(result);
-          break;
-        }
-        case 'ArrowRight': {
-          const result: GameLabels = gameLogic.addCell(
-            gameLabels,
-            gameLogic.shiftRight(gameLabels)
-          );
-          setGameLabels(result);
-          break;
-        }
-        case 'ArrowDown': {
-          const result: GameLabels = gameLogic.addCell(
-            gameLabels,
-            gameLogic.shiftDown(gameLabels)
-          );
-          setGameLabels(result);
-          break;
-        }
-        case 'ArrowLeft': {
-          const result: GameLabels = gameLogic.addCell(
-            gameLabels,
-            gameLogic.shiftLeft(gameLabels)
-          );
-          setGameLabels(result);
-          break;
-        }
-        default:
+    switch (event.key) {
+      case 'ArrowUp': {
+        result = gameLogic.addCell(gameLabels, gameLogic.shiftUp(gameLabels));
+        setGameLabels(result);
+        break;
       }
-    };
+      case 'ArrowRight': {
+        result = gameLogic.addCell(
+          gameLabels,
+          gameLogic.shiftRight(gameLabels)
+        );
+        setGameLabels(result);
+        break;
+      }
+      case 'ArrowDown': {
+        result = gameLogic.addCell(gameLabels, gameLogic.shiftDown(gameLabels));
+        setGameLabels(result);
+        break;
+      }
+      case 'ArrowLeft': {
+        result = gameLogic.addCell(gameLabels, gameLogic.shiftLeft(gameLabels));
+        setGameLabels(result);
+        break;
+      }
+      default:
+    }
 
+    if (gameLogic.hasNoMovesLeft(result)) {
+      setStatus('over');
+    }
+
+    if (gameLogic.has2048(result) && status !== 'continue') {
+      setStatus('won');
+    }
+  };
+
+  useEffect(() => {
     window.addEventListener('keydown', handleKeyDown);
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
   });
+
+  useEffect(() => {
+    if (!['continue', 'running'].includes(status)) {
+      window.removeEventListener('keydown', handleKeyDown);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [status]);
 
   return (
     <div className="game-container">

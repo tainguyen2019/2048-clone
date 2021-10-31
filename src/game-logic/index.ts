@@ -159,6 +159,30 @@ const gameLogic = {
 
     return gameLabels;
   },
+  hasNoMovesLeft: (gameLabels: GameLabels) => {
+    let result = [];
+
+    result.push(
+      JSON.stringify(gameLogic.shiftUp(gameLabels)) ===
+        JSON.stringify(gameLabels)
+    );
+    result.push(
+      JSON.stringify(gameLogic.shiftLeft(gameLabels)) ===
+        JSON.stringify(gameLabels)
+    );
+    result.push(
+      JSON.stringify(gameLogic.shiftDown(gameLabels)) ===
+        JSON.stringify(gameLabels)
+    );
+    result.push(
+      JSON.stringify(gameLogic.shiftRight(gameLabels)) ===
+        JSON.stringify(gameLabels)
+    );
+
+    return result.every((item) => item === true);
+  },
+  has2048: (gameLabels: GameLabels) =>
+    gameLabels.flat().some((cellLabel) => Number(cellLabel) === 2048),
 };
 
 export default gameLogic;

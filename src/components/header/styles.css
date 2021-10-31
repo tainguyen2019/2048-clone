@@ -51,14 +51,3 @@
   width: 50%;
   justify-self: center;
 }
-
-button {
-  border: none;
-  outline: none;
-  background: #8f7a66;
-  border-radius: 0.25rem;
-  padding: 1rem 2rem;
-  text-decoration: none;
-  color: #f9f6f2;
-  font-size: 1.0675rem;
-}
