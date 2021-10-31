@@ -1,7 +1,7 @@
 import './styles.css';
 
 type CellProps = {
-  label: number | null;
+  label: CellLabel;
 };
 
 const Cell: React.FC<CellProps> = ({ label }) => {

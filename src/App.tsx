@@ -1,21 +1,43 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Game from './components/game';
 import Header from './components/header';
-import './App.css';
 import Footer from './components/footer';
+import gameLogic from './game-logic';
+import GameOverlay from './components/game-overlay';
+import './App.css';
 
 const App: React.FC = () => {
-  const gameLabels = [
-    [2, 4, 2, null],
-    [16, 4, null, null],
-    [64, 128, 8, 32],
-    [1024, 2048, 512, 256],
-  ];
+  const [gameLabels, setGameLabels] = useState(gameLogic.initialGameLabels());
+  const [status, setStatus] = useState('running');
+
+  const handleNewGame = () => {
+    setGameLabels(gameLogic.initialGameLabels());
+  };
+
+  const handleTryAgain = () => {
+    setStatus('running');
+    handleNewGame();
+  };
+
+  const handleKeepGoing = () => {
+    setStatus('continue');
+  };
 
   return (
     <div className="app-container">
-      <Header scrore={0} bestScore={0} />
-      <Game gameLabels={gameLabels} />
+      <Header scrore={0} bestScore={0} newGame={handleNewGame} />
+      <GameOverlay
+        status={status}
+        setStatus={setStatus}
+        tryAgain={handleTryAgain}
+        keepGoing={handleKeepGoing}
+      />
+      <Game
+        gameLabels={gameLabels}
+        status={status}
+        setGameLabels={setGameLabels}
+        setStatus={setStatus}
+      />
       <Footer />
     </div>
   );

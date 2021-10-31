@@ -15,9 +15,9 @@ body {
   color: #776e65;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 767px) {
   html {
-    font-size: 10px;
+    font-size: 16px;
   }
 }
 
@@ -25,4 +25,22 @@ body {
   html {
     font-size: 32px;
   }
+}
+
+button {
+  border: none;
+  outline: none;
+  cursor: pointer;
+  font-weight: 700;
+  background: #8f7a66;
+  border-radius: 0.25rem;
+  padding: 1rem 2rem;
+  text-decoration: none;
+  color: #f9f6f2;
+  font-size: 1.0675rem;
+}
+
+button:active {
+  transform: scale(1.1);
+  transition: transform 0.15s;
 }
