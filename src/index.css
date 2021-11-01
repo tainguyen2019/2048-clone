@@ -13,6 +13,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background: #faf8ef;
   color: #776e65;
+  overscroll-behavior: contain;
 }
 
 @media screen and (max-width: 767px) {
