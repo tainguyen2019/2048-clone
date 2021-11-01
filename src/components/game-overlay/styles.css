@@ -1,5 +1,6 @@
 .game-overlay {
   position: fixed;
+  top: 0;
   width: 100vw;
   height: 100vh;
   background: rgba(238, 228, 218, 0.5);

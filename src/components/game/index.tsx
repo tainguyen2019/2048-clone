@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { useSwipeable } from 'react-swipeable';
 import gameLogic from '../../game-logic';
 import Row from '../row';
 import './styles.css';
@@ -16,6 +17,16 @@ const Game: React.FC<GameProps> = ({
   setGameLabels,
   setStatus,
 }) => {
+  const updateStatus = (gameLabelsInput: GameLabels) => {
+    if (gameLogic.hasNoMovesLeft(gameLabelsInput)) {
+      setStatus('over');
+    }
+
+    if (gameLogic.has2048(gameLabelsInput) && status !== 'continue') {
+      setStatus('won');
+    }
+  };
+
   const handleKeyDown = (event: KeyboardEvent) => {
     event.preventDefault();
     let result: GameLabels = [];
@@ -46,15 +57,35 @@ const Game: React.FC<GameProps> = ({
       }
       default:
     }
-
-    if (gameLogic.hasNoMovesLeft(result)) {
-      setStatus('over');
-    }
-
-    if (gameLogic.has2048(result) && status !== 'continue') {
-      setStatus('won');
-    }
+    updateStatus(result);
   };
+
+  const handlers = useSwipeable({
+    onSwipedLeft: () => {
+      let result: GameLabels = [];
+      result = gameLogic.addCell(gameLabels, gameLogic.shiftLeft(gameLabels));
+      setGameLabels(result);
+      updateStatus(result);
+    },
+    onSwipedRight: () => {
+      let result: GameLabels = [];
+      result = gameLogic.addCell(gameLabels, gameLogic.shiftRight(gameLabels));
+      setGameLabels(result);
+      updateStatus(result);
+    },
+    onSwipedUp: () => {
+      let result: GameLabels = [];
+      result = gameLogic.addCell(gameLabels, gameLogic.shiftUp(gameLabels));
+      setGameLabels(result);
+      updateStatus(result);
+    },
+    onSwipedDown: () => {
+      let result: GameLabels = [];
+      result = gameLogic.addCell(gameLabels, gameLogic.shiftDown(gameLabels));
+      setGameLabels(result);
+      updateStatus(result);
+    },
+  });
 
   useEffect(() => {
     window.addEventListener('keydown', handleKeyDown);
@@ -71,7 +102,7 @@ const Game: React.FC<GameProps> = ({
   }, [status]);
 
   return (
-    <div className="game-container">
+    <div className="game-container" {...handlers}>
       {gameLabels.map((labels, index) => (
         <Row labels={labels} key={index} />
       ))}
